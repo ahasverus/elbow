@@ -21,6 +21,28 @@
 #'
 #' @author Nicolas CASAJUS, \email{nicolas.casajus@@fondationbiodiversite.com}
 #'
+#' @examples
+#' ## Loading dataset ----
+#' data(profiles)
+#' head(profiles)
+#'
+#' ## Object returned ----
+#' x <- elbow(profiles[ , c("x", "Concave down (positive slope)")], plot = FALSE)
+#' class(x)
+#' names(x)
+#' x$"x_selected"
+#'
+#' ## Graphical usage ----
+#' x <- elbow(profiles[ , c("x", "Concave down (positive slope)")])
+#'
+#' ## The four implemented profiles ----
+#' curves <- colnames(profiles)[-1]
+#' par(mfrow = c(2, 2))
+#' for (i in curves) {
+#'   elbow(profiles[ , c("x", i)])
+#'   title(i)
+#' }
+#'
 
 elbow <- function(data, plot = TRUE) {
 

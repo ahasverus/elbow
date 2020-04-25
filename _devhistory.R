@@ -74,8 +74,8 @@ system("git commit -m ':bulb: Edit Dataset Documentation'")
 
 usethis::edit_file(file.path("R", "elbow.R"))
 ## ● Edit 'R/profiles.R' (Example section)
-system("git add -A")
 devtools::document()
+system("git add -A")
 system("git commit -m ':bulb: Add Example Section'")
 
 devtools::check()
