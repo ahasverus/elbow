@@ -14,8 +14,7 @@ Description: This package implements the Elbow (or knee of a curve) method to
     \url{https://en.wikipedia.org/wiki/Elbow_method_(clustering)}.
 URL: https://github.com/ahasverus/elbow
 BugReports: https://github.com/ahasverus/elbow/issues
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
