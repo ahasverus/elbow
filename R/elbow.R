@@ -27,13 +27,13 @@
 #' head(profiles)
 #'
 #' ## Object returned ----
-#' x <- elbow(profiles[ , c("x", "Concave down (positive slope)")], plot = FALSE)
+#' x <- elbow(profiles[ , c("x", "concave_down_pos_slo")], plot = FALSE)
 #' class(x)
 #' names(x)
 #' x$"x_selected"
 #'
 #' ## Graphical usage ----
-#' x <- elbow(profiles[ , c("x", "Concave down (positive slope)")])
+#' x <- elbow(profiles[ , c("x", "concave_down_pos_slo")])
 #'
 #' ## The four implemented profiles ----
 #' curves <- colnames(profiles)[-1]
