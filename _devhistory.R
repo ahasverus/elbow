@@ -121,7 +121,7 @@ system("git add -A")
 system("git commit -m ':wrench: Pkgdown Setup'")
 system("git push")
 
-usethis::use_pkgdown_travis()
+usethis::use_pkgdown_travis()                                                   #########
 travis::use_travis_deploy()
 ## ● Edit '.travis.yml'
 system("git add -A")
@@ -131,6 +131,7 @@ system("git push")
 ## ● Remove 'inst/doc' from .gitignore
 system("git add -A")
 system("git commit -m ':see_no_evil: Track inst/doc'")
+system("git push")
 
 usethis::use_testthat()
 usethis::use_test("elbow")
@@ -146,4 +147,4 @@ system("git add -A")
 system("git commit -m ':construction_worker: Code Coverage Setup'")
 system("git push")
 
-usethis::use_version(which = "major")
+# usethis::use_version(which = "major")
