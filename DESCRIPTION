@@ -1,13 +1,19 @@
 Package: elbow
-Title: What the Package Does (One Line, Title Case)
+Title: Detect Inflection Point of a Concave Curve
 Version: 0.0.0.9000
-Authors@R: 
-    person(given = "First",
-           family = "Last",
-           role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R:
+    person(
+        given   = "Nicolas",
+        family  = "Casajus",
+        role    = c("aut", "cre"),
+        email   = "nicolas.casajus@gmail.com",
+        comment = c(ORCID = "0000-0002-5537-5294")
+    )
+Description: This package implements the Elbow (or knee of a curve) method to
+    detect the inflection point of a concave curve. More information on this method:
+    \url{https://en.wikipedia.org/wiki/Elbow_method_(clustering)}.
+URL: https://github.com/ahasverus/elbow
+BugReports: https://github.com/ahasverus/elbow/issues
 License: `use_mit_license()`, `use_gpl3_license()` or friends to
     pick a license
 Encoding: UTF-8
