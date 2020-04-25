@@ -109,14 +109,14 @@ usethis::use_travis()
 ## ● Edit '.travis.yml'
 rmarkdown::render("README.Rmd")
 system("git add -A")
-system("git commit -m ':construction_work: Travis CI Setup'")
+system("git commit -m ':construction_worker: Travis CI Setup'")
 system("git push")
 
 usethis::use_appveyor()
 ## ● Edit 'appveyor.yml'
 rmarkdown::render("README.Rmd")
 system("git add -A")
-system("git commit -m ':construction_work: Appveyor Setup'")
+system("git commit -m ':construction_worker: Appveyor Setup'")
 system("git push")
 
 usethis::use_pkgdown()
@@ -143,7 +143,7 @@ usethis::use_coverage("codecov")
 ## ● Wait a few minutes after adding repository on https://codecov.io
 rmarkdown::render("README.Rmd")
 system("git add -A")
-system("git commit -m ':construction_work: Code Coverage Setup'")
+system("git commit -m ':construction_worker: Code Coverage Setup'")
 system("git push")
 
 usethis::use_version(which = "major")

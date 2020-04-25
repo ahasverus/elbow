@@ -9,6 +9,7 @@
 status](https://travis-ci.com/ahasverus/elbow.svg?branch=master)](https://travis-ci.com/ahasverus/elbow)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/ahasverus/elbow?branch=master&svg=true)](https://ci.appveyor.com/project/ahasverus/elbow)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/elbow)](https://cran.r-project.org/package=elbow)
 <!-- badges: end -->
 
 The goal of the package `elbow` is to implement the Elbow (or knee of a
