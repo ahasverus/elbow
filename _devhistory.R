@@ -3,8 +3,7 @@ pkg <- "elbow"
 usethis::create_package(pkg)
 
 usethis::use_git()
-## ● Add '_devhistory.R' to .Rbuildignore
-## ● Add '.DS_Store' to .gitignore
+usethis::use_git_ignore(".DS_Store")
 system("git add -A")
 system("git commit -m ':tada: Init Repository'")
 
@@ -16,6 +15,10 @@ system("git commit -m ':bulb: Edit Package Metadata'")
 usethis::use_gpl3_license(name = "Nicolas Casajus")
 system("git add -A")
 system("git commit -m ':page_facing_up: Add Package License'")
+
+usethis::use_build_ignore("_devhistory.R")
+system("git add -A")
+system("git commit -m ':see_no_evil: Ignore {_devhistory}'")
 
 usethis::use_roxygen_md()
 system("git add -A")
