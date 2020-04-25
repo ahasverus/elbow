@@ -94,6 +94,8 @@ system("git commit -m ':pencil: Edit README'")
 
 usethis::use_code_of_conduct()
 ## ● Edit 'CODE_OF_CONDUCT.md'
+## ● Edit 'README.Rmd'
+rmarkdown::render("README.Rmd")
 system("git add -A")
 system("git commit -m ':page_facing_up: Add Code of Conduct'")
 
