@@ -1,3 +1,27 @@
+#' Detect Inflection Point of a Concave Curve (Elbox Method)
+#'
+#' This function implements the Elbow (or knee of a curve) method to detect
+#'   the inflection point of a concave curve. More information on this method:
+#'   \url{https://en.wikipedia.org/wiki/Elbow_method_(clustering)}.
+#'
+#' @param data a two-columns data frame (x and y respectively).
+#' @param plot a boolean. If TRUE (default) curves are plotted.
+#'
+#' @return This function returns a 2-elements list with:
+#'   - the value on x-Axis corresponding to the inflection point
+#'   - a data frame with the original data and two additional columns used in
+#'     the graphic.
+#'
+#' @details This function detects unique inflection point in a simple concave
+#'   curve. The curve can be concave down/up with a positive/negative slope.
+#'
+#' @import stats graphics
+#'
+#' @export
+#'
+#' @author Nicolas CASAJUS, \email{nicolas.casajus@@fondationbiodiversite.com}
+#'
+
 elbow <- function(data, plot = TRUE) {
 
 
