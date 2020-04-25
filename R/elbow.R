@@ -1,6 +1,33 @@
 elbow <- function(data, plot = TRUE) {
 
 
+  ## Argument checks ----
+
+  if (missing(data)) {
+    stop("Please provide a two-columns data frame.")
+  }
+
+  if (!is.list(data)) {
+    stop("`data` must be a two-columns data frame.")
+  }
+
+  if (ncol(data) > 2) {
+    warning("Only the first two columns will be considered.")
+  }
+
+  if (!is.numeric(data[ , 1]) || !is.numeric(data[ , 2])) {
+    stop("Non-numeric data detected.")
+  }
+
+  if (sum(is.na(data[ , 1])) + sum(is.na(data[ , 2]))) {
+    stop("Missing values detected.")
+  }
+
+  if (!is.logical(plot)) {
+    stop("`plot` must be a boolean.")
+  }
+
+
   ## Data transformation ----
 
   data <- data[ , 1:2]
