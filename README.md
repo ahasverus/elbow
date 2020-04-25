@@ -10,6 +10,12 @@ status](https://travis-ci.com/ahasverus/elbow.svg?branch=master)](https://travis
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/ahasverus/elbow?branch=master&svg=true)](https://ci.appveyor.com/project/ahasverus/elbow)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/elbow)](https://cran.r-project.org/package=elbow)
+[![Contributor
+Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct.md)
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Project Status:
+Stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
 The goal of the package `elbow` is to implement the Elbow (or knee of a
