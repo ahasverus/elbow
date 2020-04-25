@@ -99,10 +99,6 @@ rmarkdown::render("README.Rmd")
 system("git add -A")
 system("git commit -m ':page_facing_up: Add Code of Conduct'")
 
-## ● Remove 'inst/doc' from .gitignore
-system("git add -A")
-system("git commit -m ':see_no_evil: Track inst/doc'")
-
 usethis::use_github(protocol = "https")
 
 usethis::use_travis()
@@ -131,6 +127,10 @@ travis::use_travis_deploy()
 system("git add -A")
 system("git commit -m ':rocket: Deploy Website (Travis CI)'")
 system("git push")
+
+## ● Remove 'inst/doc' from .gitignore
+system("git add -A")
+system("git commit -m ':see_no_evil: Track inst/doc'")
 
 usethis::use_testthat()
 usethis::use_test("elbow")
