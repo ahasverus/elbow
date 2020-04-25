@@ -22,3 +22,5 @@ RoxygenNote: 7.1.0
 Imports: 
     stats,
     graphics
+Depends: 
+    R (>= 2.10)
