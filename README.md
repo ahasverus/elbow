@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Travis build
+status](https://travis-ci.com/ahasverus/elbow.svg?branch=master)](https://travis-ci.com/ahasverus/elbow)
 <!-- badges: end -->
 
 The goal of the package `elbow` is to implement the Elbow (or knee of a

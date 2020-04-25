@@ -2,3 +2,4 @@
 ^_devhistory\.R$
 ^README\.Rmd$
 ^CODE_OF_CONDUCT\.md$
+^\.travis\.yml$
