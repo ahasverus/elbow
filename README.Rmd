@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse  = TRUE,
   comment   = "#>",
-  fig.path  = "man/figures/README-",
+  fig.path  = "man/figures/",
   out.width = "100%"
 )
 ```
@@ -28,22 +28,26 @@ The goal of the package `elbow` is to implement the Elbow (or knee of a curve)
 method to detect the inflection point of a concave curve. More information on
 this method can be found on [Wikipedia](https://en.wikipedia.org/wiki/Elbow_method_(clustering)).
 
+
 ## Installation
 
-You can install the dev version of `elbow` from [GitHub](https://github.com/ahasverus/elbow) with:
+You can install the `elbow` package from [GitHub](https://github.com/ahasverus/elbow) with:
 
-```{r echo=TRUE, eval=FALSE}
-devtools::install_github("ahasverus/elbow")
+```{r echo = TRUE, eval = FALSE}
+devtools::install_github("ahasverus/elbow", build_vignettes = TRUE)
+library(elbow)
 ```
+
 
 ## Getting started
 
-Browse the example of the function `elbow::elbow()` for a complete usage:
+Visit the [**vignette**](https://nicolascasajus.fr/elbow/articles/introduction.html)
+for a complete example. The vignette is also available by using:
 
-```{r echo=TRUE, eval=FALSE}
-library(elbow)
-?elbow
+```{r echo = TRUE, eval = FALSE}
+browseVignettes("elbow")
 ```
+
 
 ## Code of Conduct
 

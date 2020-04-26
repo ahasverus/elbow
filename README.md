@@ -25,21 +25,22 @@ information on this method can be found on
 
 ## Installation
 
-You can install the dev version of `elbow` from
+You can install the `elbow` package from
 [GitHub](https://github.com/ahasverus/elbow) with:
 
 ``` r
-devtools::install_github("ahasverus/elbow")
+devtools::install_github("ahasverus/elbow", build_vignettes = TRUE)
+library(elbow)
 ```
 
 ## Getting started
 
-Browse the example of the function `elbow::elbow()` for a complete
-usage:
+Visit the
+[**vignette**](https://nicolascasajus.fr/elbow/articles/introduction.html)
+for a complete example. The vignette is also available by using:
 
 ``` r
-library(elbow)
-?elbow
+browseVignettes("elbow")
 ```
 
 ## Code of Conduct
