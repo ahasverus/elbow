@@ -121,9 +121,10 @@ system("git add -A")
 system("git commit -m ':wrench: Pkgdown Setup'")
 system("git push")
 
-usethis::use_pkgdown_travis()                                                   #########
+usethis::use_pkgdown_travis()
 travis::use_travis_deploy()
 ## ● Edit '.travis.yml'
+## NB. pkgdown::deploy_site_github(ssh_id = Sys.getenv("TRAVIS_DEPLOY_KEY", ""))
 system("git add -A")
 system("git commit -m ':rocket: Deploy Website (Travis CI)'")
 system("git push")

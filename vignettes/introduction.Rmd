@@ -1,5 +1,5 @@
 ---
-title: "introduction"
+title: "The `{elbow}` package"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -7,13 +7,371 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, echo = FALSE, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
+  collapse   = TRUE,
+  comment    = "## ",
+  fig.align  = "center",
+  fig.height = 6,
+  fig.width  = 6,
+  out.height = "100%",
+  out.width  = "100%",
+  dpi        = 300
 )
 ```
 
-```{r setup}
+```{r params, echo = FALSE, eval = TRUE}
+library(elbow)
+
+param <- list(
+  mar      = c(2.5, 2.5, 1.5, 1.5),
+  family   = "serif",
+  cex.axis = 0.85,
+  mgp      = c(2, .15, 0),
+  tcl      = -0.25,
+  fg       = "#666666",
+  col      = "#666666",
+  col.axis = "#666666"
+)
+```
+
+
+The goal of the package **`{elbow}`** is to implement the Elbow (or knee of a curve)
+method to detect the inflection point of a concave curve. More information on
+this method can be found below and on [Wikipedia](https://en.wikipedia.org/wiki/Elbow_method_(clustering)).
+
+<br />
+
+## Getting started
+
+We can install the package **`{elbow}`** from [GitHub](https://github.com/ahasverus/elbow) with:
+
+```{r install, echo = TRUE, eval = FALSE}
+devtools::install_github("ahasverus/elbow")
+
 library(elbow)
 ```
+
+<br />
+
+Let's take a look at the package content:
+
+```{r load, echo = TRUE, eval = TRUE}
+ls("package:elbow")
+```
+
+The package contains two elements:
+
+- **`elbow()`** - the only function of the package used to detect inflection point;
+- **`profiles`** - a reproductible example.
+
+<br />
+
+## Reproductible example
+
+First, we will load the **`profiles`** dataset and print a summary of its content:
+
+```{r usage, echo = TRUE, eval = TRUE}
+data(profiles)
+
+str(profiles)
+
+head(profiles)
+```
+
+<br />
+
+The **`profiles`** dataset is a data frame with 31 rows and the five following variables:
+
+| Variable name              | Description                                           |
+|:---------------------------|:------------------------------------------------------|
+| **`x`**                    | A sequence from 0 to 30 (x-Axis)                      |
+| **`concave_down_pos_slo`** | 1^st^ profile - Concave down with positive slope      |
+| **`concave_down_neg_slo`** | 2^nd^ profile - Concave down with negative slope      |
+| **`concave_up_pos_slo`**   | 3^rd^ profile - Concave up with positive slope        |
+| **`concave_up_neg_slo`**   | 4^th^ profile - Concave up with negative slope        |
+
+Let's plot these four concave curves along the **`x`** sequence:
+
+<br />
+
+```{r plot1, echo = FALSE, eval = TRUE}
+par(param)
+par(mfrow = c(2, 2))
+
+for (i in 2:5) {
+
+  xy <- profiles[ , c(1, i)]
+  plot(xy, xlim = c(0, 30), ylim = c(0, 1), ann = FALSE, axes = FALSE, type = "n")
+  grid()
+  box()
+
+  par(mgp = c(2, 0.00, 0))
+  axis(1, lwd = 0)
+
+  par(mgp = c(2, 0.25, 0))
+  axis(2, lwd = 0, las = 1)
+
+  mtext(side = 1, cex = 1, line = 1.25, text = expression("x"))
+  mtext(side = 2, cex = 1, line = 1.45, text = expression("f(x)"))
+
+  points(xy, type = "b", pch = 19, col = "black")
+
+  rect(7, .41, 23, .59, col = "white", border = NA)
+
+  label <- gsub("_", " ", colnames(xy)[2])
+  label <- gsub("concave", "Concave", label)
+  label <- gsub("down", "Down", label)
+  label <- gsub("up", "Up", label)
+  label <- gsub("pos slo", "\n(positive slope)", label)
+  label <- gsub("neg slo", "\n(negative slope)", label)
+
+  text(15, 0.5, label, font = 2)
+
+  if (i %in% c(2, 4)) {
+
+    text(-1, 0.95, LETTERS[i-1], font = 2, pos = 4)
+
+  } else {
+
+    text(31, 0.95, LETTERS[i-1], font = 2, pos = 2)
+  }
+}
+```
+
+<br />
+
+**NB.** In Clustering Analysis or Principal Component Analysis, we frequently meet
+the profiles **A** (a quantity increasing as the number of groups increases) and
+**D** (a quantity decreasing as the number of groups increases).
+
+<br />
+
+## The Elbow algorithm
+
+We are going to detect the inflection point of the profile **A** (Concave down
+with a positive slope). In Clustering Analysis, the x-Axis may represent the number
+of groups and the y-Axis the explained variance (R^2^).
+
+The idea behind the Elbow method is to maximize a quantity (benefits) while reducing
+the costs (number of groups). Consequently, the inflection point will be the point
+from which the benefits become lower than the costs.
+
+**NB.** In the profile **D** (Concave up with a negative slope) the objective is to
+minimize the quantity while reducing the costs.
+
+<br />
+
+How does it work?
+
+```{r plot2, echo = FALSE, eval = TRUE}
+par(param)
+par(mfrow = c(2, 2))
+
+xy <- profiles[ , c(1, 2)]
+ipoint <- elbow(data = xy, plot = FALSE)
+
+plot(xy, xlim = c(0, 30), ylim = c(0, 1), ann = FALSE, axes = FALSE, type = "n")
+grid()
+box()
+
+par(mgp = c(2, 0.00, 0))
+axis(1, lwd = 0)
+
+par(mgp = c(2, 0.25, 0))
+axis(2, lwd = 0, las = 1)
+
+mtext(side = 1, cex = 1, line = 1.25, text = expression("x"))
+mtext(side = 2, cex = 1, line = 1.45, text = expression("f(x)"))
+
+points(xy, type = "b", pch = 19, col = "black")
+text(-1, 0.95, "(1)", font = 2, pos = 4)
+
+
+plot(xy, xlim = c(0, 30), ylim = c(0, 1), ann = FALSE, axes = FALSE, type = "n")
+grid()
+box()
+
+par(mgp = c(2, 0.00, 0))
+axis(1, lwd = 0)
+
+par(mgp = c(2, 0.25, 0))
+axis(2, lwd = 0, las = 1)
+
+mtext(side = 1, cex = 1, line = 1.25, text = expression("x"))
+mtext(side = 2, cex = 1, line = 1.45, text = expression("f(x)"))
+
+points(xy, type = "b", pch = 19, col = "#aaaaaa66")
+
+for (i in 1:nrow(xy)) {
+  rect(
+    xleft   = ipoint$data[i, "x"] - .5,
+    ybottom = 0,
+    xright  = ipoint$data[i, "x"] + .5,
+    ytop    = ipoint$data[i, "constant"],
+    border  = "white",
+    col     = "black"
+  )
+}
+
+text(-1, 0.95, "(2)", font = 2, pos = 4)
+
+
+
+plot(xy, xlim = c(0, 30), ylim = c(0, 1), ann = FALSE, axes = FALSE, type = "n")
+grid()
+box()
+
+par(mgp = c(2, 0.00, 0))
+axis(1, lwd = 0)
+
+par(mgp = c(2, 0.25, 0))
+axis(2, lwd = 0, las = 1)
+
+mtext(side = 1, cex = 1, line = 1.25, text = expression("x"))
+mtext(side = 2, cex = 1, line = 1.45, text = expression("f(x)"))
+
+points(xy, type = "b", pch = 19, col = "#aaaaaa66")
+
+for (i in 1:nrow(xy)) {
+  rect(
+    xleft   = ipoint$data[i, "x"] - .5,
+    ybottom = 0,
+    xright  = ipoint$data[i, "x"] + .5,
+    ytop    = ipoint$data[i, "constant"],
+    border  = "white",
+    col     = "#aaaaaa66"
+  )
+
+  if (!(i %in% c(1, nrow(xy)))) {
+    arrows(
+      x0 = ipoint$data[i, "x"],
+      y0 = ipoint$data[i, "constant"],
+      x1 = ipoint$data[i, "x"],
+      y1 = ipoint$data[i, 2],
+      length = 0.025,
+      angle  = 20,
+      code   = 3,
+      col = "black"
+    )
+  }
+}
+
+text(-1, 0.95, "(3)", font = 2, pos = 4)
+
+
+plot(xy, xlim = c(0, 30), ylim = c(0, 1), ann = FALSE, axes = FALSE, type = "n")
+grid()
+box()
+
+par(mgp = c(2, 0.00, 0))
+axis(1, lwd = 0)
+
+par(mgp = c(2, 0.25, 0))
+axis(2, lwd = 0, las = 1)
+
+mtext(side = 1, cex = 1, line = 1.25, text = expression("x"))
+mtext(side = 2, cex = 1, line = 1.45, text = expression("f(x)"))
+
+points(xy, type = "b", pch = 19, col = "#aaaaaa66")
+
+for (i in 1:nrow(xy)) {
+  rect(
+    xleft   = ipoint$data[i, "x"] - .5,
+    ybottom = 0,
+    xright  = ipoint$data[i, "x"] + .5,
+    ytop    = ipoint$data[i, "constant"],
+    border  = "white",
+    col     = "#aaaaaa66"
+  )
+}
+
+polygon(
+  x      = c(ipoint$data[ , 1], ipoint$data[1, 1]),
+  y      = c(ipoint$data[ , "benefits"], ipoint$data[1, "benefits"]),
+  col    = "black",
+  border = "black"
+)
+
+opti <- ipoint$dat[ipoint$dat[ , 1] == ipoint[[1]], c(1, 4)]
+points(opti, type = "b", pch = 19, col = "#890000", cex = 1.5)
+
+
+text(-1, 0.95, "(4)", font = 2, pos = 4)
+
+```
+
+From the profile **(1)**, we apply a constant increase along the
+x-Axis to reach the maximum value on the y-Axis **(2)**. Then, for each value on
+the x-Axis, we compute the difference between the two series **(3)** to generate the
+profile **(4)** (net benefits). The inflection point, in this case, corresponds
+to the maximum value on this new profile (red dot).
+
+
+<br />
+
+## Usage of **`elbow()`**
+
+This algorithm is implemented in the function **`elbow::elbow()`** which takes two
+arguments:
+
+- **`data`** - a two-columns data frame (x and y respectively);
+- **`plot`** - a boolean. If `TRUE` (default) the curves are plotted.
+
+<br />
+
+Let's apply this function to detect the inflection point of the profile **A**.
+
+```{r plot3, echo = TRUE, eval = TRUE}
+dopo <- profiles[ , c("x", "concave_down_pos_slo")]
+
+ipoint <- elbow(data = dopo)
+```
+
+<br />
+
+What is the returned object?
+
+```{r content, echo = TRUE, eval = TRUE}
+class(ipoint)
+
+names(ipoint)
+
+print(ipoint)
+```
+
+The element `ipoint$data` is returned to reproduce the graphic. The one we are
+interested in is **`ipoint$x_selected`** which returns the coordinate on the x-Axis
+(not the position on the data frame) corresponding to the inflection point.
+
+```{r axis, echo = TRUE, eval = TRUE}
+ipoint$"x_selected"
+
+ipoint[["data"]][ipoint[["data"]][ , "x"] == ipoint[["x_selected"]], 1:2]
+```
+
+<br />
+
+What about the other profiles?
+
+```{r plot4, echo = TRUE, eval = TRUE}
+profs <- colnames(profiles)[-1]
+
+par(mfrow = c(2, 2))
+
+for (prof in profs) {
+  elbow(profiles[ , c("x", prof)])
+}
+```
+
+<br />
+
+## Code of Conduct
+
+Please note that the `elbow` project is released with a
+[Contributor Code of Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+<br />
+
+Last updated: `r format(Sys.time(), "%Y/%m/%d")`
