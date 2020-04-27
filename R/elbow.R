@@ -96,7 +96,8 @@ elbow <- function(data, plot = TRUE) {
 
   if (data[pos, "constant"] < data[pos, 2]) { # Concave Down
 
-    data[ , "benefits"] <- round(data[ , 2] - data[ , "constant"], 3)
+    ymin <- min(data[ , 2])
+    data[ , "benefits"] <- ymin + round(data[ , 2] - data[ , "constant"], 3)
     maxi <- data[which.max(data[ , "benefits"]), ]
 
   } else { # Concave Up
